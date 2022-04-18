@@ -5,7 +5,7 @@ import { useLoaderData } from "@remix-run/react";
 import Post from "~/components/post";
 import PremiumPost from "~/components/premium-post";
 
-import truncate from "~/utils/trunkcate-html";
+import truncate from "~/utils/trunkcate-html.server";
 import { auth } from "~/auth.server";
 
 export const loader: LoaderFunction = async ({ params, request }) => {

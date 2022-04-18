@@ -36,9 +36,7 @@ export const auth = new Authenticator<{
   profile: GitHubProfile;
   accessToken: string;
   extraParams: GitHubExtraParams;
-}>(sessionStorage);
-
-auth.use(
+}>(sessionStorage).use(
   new GitHubStrategy(
     {
       clientID: process.env.GITHUB_CLIENT_ID!,
