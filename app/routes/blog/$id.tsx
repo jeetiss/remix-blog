@@ -6,24 +6,32 @@ import Post from "~/components/post";
 import PremiumPost from "~/components/premium-post";
 
 import truncate from "~/utils/trunkcate-html";
+import { auth } from "~/auth.server";
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const response = await fetch(`https://resume.io/api/cms/posts/${params.id}`);
+export const loader: LoaderFunction = async ({ params, request }) => {
+  const promise = fetch(`https://resume.io/api/cms/posts/${params.id}`);
+
+  const user = await auth.isAuthenticated(request);
+  const response = await promise;
   const { post } = await response.json();
 
   if (post.id % 7 === 1) {
     post.premium = true;
-    post.content = await truncate(post.content);
+
+    if (!user) {
+      post.truncated = true;
+      post.content = await truncate(post.content);
+    }
   }
 
   return post;
 };
 
 export default function PostSlug() {
-  const { title, content, premium } = useLoaderData();
-  if (premium) {
+  const { title, content, premium, truncated } = useLoaderData();
+  if (truncated) {
     return <PremiumPost title={title} content={content} />;
   }
 
-  return <Post title={title} content={content} />;
+  return <Post premium={premium} title={title} content={content} />;
 }

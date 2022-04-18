@@ -28,11 +28,13 @@ const Article = styled.section`
 type PostProps = {
   title: string;
   content: string;
+  premium?: boolean;
 };
 
-export default function Post({ title, content }: PostProps) {
+export default function Post({ title, content, premium }: PostProps) {
   return (
     <BlogPost>
+      {premium && <span>Premium</span>}
       <h1>{title}</h1>
 
       <Article dangerouslySetInnerHTML={{ __html: content }} />
