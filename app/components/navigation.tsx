@@ -1,5 +1,5 @@
 import type { GitHubProfile } from "remix-auth-github";
-import { Link, Form } from "@remix-run/react";
+import { Link, Form, useLocation } from "@remix-run/react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -52,12 +52,18 @@ const LeftPart = styled.div`
 type NavProps = { profile?: GitHubProfile };
 
 export default function Navigaton({ profile }: NavProps) {
+  const { pathname } = useLocation();
+
   return (
     <Nav>
       <h1>Remix Blog</h1>
 
       <LeftPart>
-        {profile ? <Profile {...profile} /> : <Link to="/login">login</Link>}
+        {profile ? (
+          <Profile {...profile} />
+        ) : (
+          <Link to={`/login?redirectTo=${pathname}`}>login</Link>
+        )}
       </LeftPart>
     </Nav>
   );
