@@ -6,7 +6,7 @@ import Post from "~/components/post";
 import PremiumPost from "~/components/premium-post";
 
 import truncate from "~/utils/trunkcate-html.server";
-import { auth } from "~/auth.server";
+import { auth } from "~/utils/auth.server";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   const promise = fetch(`https://resume.io/api/cms/posts/${params.id}`);

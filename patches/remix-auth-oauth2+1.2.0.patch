@@ -1,0 +1,12 @@
+diff --git a/node_modules/remix-auth-oauth2/build/index.js b/node_modules/remix-auth-oauth2/build/index.js
+index 233b744..3562793 100644
+--- a/node_modules/remix-auth-oauth2/build/index.js
++++ b/node_modules/remix-auth-oauth2/build/index.js
+@@ -81,6 +81,7 @@ class OAuth2Strategy extends remix_auth_1.Strategy {
+             let state = this.generateState();
+             debug("State", state);
+             session.set(this.sessionStateKey, state);
++            if (options.redirectAfterAuth) session.set('redirect_aa', options.redirectAfterAuth);
+             throw (0, server_runtime_1.redirect)(this.getAuthorizationURL(request, state).toString(), {
+                 headers: { "Set-Cookie": await sessionStorage.commitSession(session) },
+             });

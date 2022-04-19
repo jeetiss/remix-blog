@@ -2,7 +2,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useLoaderData, useSearchParams } from "@remix-run/react";
 
-import { auth, sessionStorage } from "~/auth.server";
+import { auth, sessionStorage } from "~/utils/auth.server";
 
 type LoaderData = {
   error: { message: string } | null;

@@ -5,7 +5,7 @@ import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 
 import Navigation from "~/components/navigation";
-import { auth } from "~/auth.server";
+import { auth } from "~/utils/auth.server";
 
 type LoaderData = { profile?: GitHubProfile };
 
