@@ -5,7 +5,7 @@ import { useLoaderData } from "@remix-run/react";
 import Post from "~/components/post";
 import PremiumPost from "~/components/premium-post";
 
-import truncate from "~/utils/trunkcate-html.server";
+import { truncate, isPremium } from "~/utils/trunkcate-html.server";
 import { auth } from "~/utils/auth.server";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -15,7 +15,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const response = await promise;
   const { post } = await response.json();
 
-  if (post.id % 7 === 1) {
+  if (isPremium(post)) {
     post.premium = true;
 
     if (!user) {

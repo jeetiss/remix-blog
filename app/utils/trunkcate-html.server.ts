@@ -10,7 +10,11 @@ const uni = unified()
   .use(stringify, { allowDangerousHtml: true })
   .freeze();
 
-const truncate = async (html: string): Promise<string | Uint8Array> =>
+export function isPremium(post: { id: number }) {
+    return post.id % 2 === 0;
+  }
+
+export const truncate = async (html: string): Promise<string | Uint8Array> =>
   (await uni.process(html)).contents;
 
 export default truncate;

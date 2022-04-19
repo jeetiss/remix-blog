@@ -2,6 +2,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import { json, fetch } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
+import { isPremium } from "~/utils/trunkcate-html.server";
 import Grid from "~/components/grid";
 import Card from "~/components/card";
 import Pagination from "~/components/pagination";
@@ -27,7 +28,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   for (let post of posts) {
     delete post.content;
-    if (post.id % 7 === 1) {
+    if (isPremium(post)) {
       post.premium = true;
     }
   }
