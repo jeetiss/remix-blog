@@ -1,3 +1,5 @@
+import type { ActionFunction } from "@remix-run/node";
+import { auth } from "~/utils/auth.server";
 import type { GitHubProfile } from "remix-auth-github";
 import { Link, Form, useLocation } from "@remix-run/react";
 import styled from "styled-components";
@@ -50,6 +52,10 @@ const LeftPart = styled.div`
 `;
 
 type NavProps = { profile?: GitHubProfile };
+
+export const action: ActionFunction = async ({ request }) => {
+  await auth.logout(request, { redirectTo: "/blog" });
+};
 
 export default function Navigaton({ profile }: NavProps) {
   const { pathname } = useLocation();
